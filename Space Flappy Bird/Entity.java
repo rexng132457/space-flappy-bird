@@ -71,7 +71,8 @@
      public int getY() {
        return (int) y;
      } // getY
-     
+
+
     /*
      * Draw this entity to the graphics object provided at (x,y)
      */
@@ -103,5 +104,6 @@
       *       that extends this class
       */
       public abstract void collidedWith(Entity other);
+
 
  } // Entity class

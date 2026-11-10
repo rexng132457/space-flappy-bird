@@ -33,7 +33,7 @@ public class AlienEntity extends Entity {
 
     // if we reach right side of screen and are moving right
     // request logic update
-    if ((dx > 0) && (x > game.GAME_WIDTH - 30)) {
+    if ((dx > 0) && (x > 950)) {
       game.updateLogic();
     } // if
     
@@ -52,7 +52,7 @@ public class AlienEntity extends Entity {
     y += 10;
 
     // if bottom of screen reached, player dies
-    if (y > 810) {
+    if (y > 970) {
       game.notifyDeath();
     } // if
   } // doLogic

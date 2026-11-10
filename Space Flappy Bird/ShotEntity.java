@@ -7,7 +7,6 @@ public class ShotEntity extends Entity {
   private double moveSpeed = -300; // vert speed shot moves
   private boolean used = false; // true if shot hits something
   private Game game; // the game in which the ship exists
-  private boolean alienShot;
 
   /* construct the shot
    * input: game - the game in which the shot is being created
@@ -15,19 +14,13 @@ public class ShotEntity extends Entity {
    *              the sprite for the shot
    *        x, y - initial location of shot
    */
-  public ShotEntity(Game g, String r, int newX, int newY, boolean alienShot) {
+  public ShotEntity(Game g, String r, int newX, int newY) {
     super(r, newX, newY);  // calls the constructor in Entity
     game = g;
-    
-    if (alienShot) {
-    	dy = -moveSpeed;
-    } // if
-    else {
-    	dy = moveSpeed;
-    } // else
-    
-    this.alienShot = alienShot;
+    dy = moveSpeed;
   } // constructor
+  
+
 
   /* move
    * input: delta - time elapsed since last move (ms)
@@ -40,10 +33,7 @@ public class ShotEntity extends Entity {
     if (y < -100) {
       game.removeEntity(this);
     } // if
-    
-    if (alienShot && y >= 1100) {
-    	game.removeEntity(this);
-    } // if
+
   } // move
 
 
@@ -58,13 +48,8 @@ public class ShotEntity extends Entity {
        return;
      } // if
      
-     // if it hits ship, end game
-     if (alienShot && other instanceof ShipEntity) {
-    	 used = true;
-    	 game.notifyDeath();
-     } // if
      // if it has hit an alien, kill it!
-     else if (!alienShot && other instanceof AlienEntity) {
+     if (other instanceof AlienEntity) {
        // remove affect entities from the Entity list
        game.removeEntity(this);
        game.removeEntity(other);
@@ -72,7 +57,8 @@ public class ShotEntity extends Entity {
        // notify the game that the alien is dead
        game.notifyAlienKilled();
        used = true;
-     } // else if
+     } // if
+
    } // collidedWith
 
 } // ShipEntity class
